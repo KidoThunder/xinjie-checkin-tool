@@ -3,6 +3,8 @@ from pathlib import Path
 import yaml
 import requests
 
+from xj_logger import logger
+
 with open(Path.cwd() / "config.yaml") as config_file:
     CONFIG = yaml.safe_load(config_file)
 
@@ -43,22 +45,21 @@ class XinJieAPIS(object):
         }
         resp, is_ok = self.base_request.post(url, payload)
         if not is_ok:
-            print("Login Failed!")
+            logger.info("Login Failed!")
             return
         self.base_request.set_cookies(resp.cookies)
-        print(f"Login Result: {resp.json()['ret']}, Login message: {resp.json()['msg']}")
+        logger.info(f"Login Result: {resp.json()['ret']}, Login message: {resp.json()['msg']}")
 
     def checkin(self):
         url = f"{self.base_url}user/checkin"
         resp, is_ok = self.base_request.post(url)
         if not is_ok:
-            print("Checkin Failed!")
-        print(resp.text)
-        print(f"Checkin Result: {resp.json()['ret']}, Checkin message: {resp.json()['msg']}")
+            logger.info("Checkin Failed!")
+        logger.info(f"Checkin Result: {resp.json()['ret']}, Checkin message: {resp.json()['msg']}")
 
     def logout(self):
         url = f"{self.base_url}user/logout"
         resp, is_ok = self.base_request.get(url)
         if not is_ok:
-            print("Logout Failed!")
-        print("Logout Successfully!")
+            logger.info("Logout Failed!")
+        logger.info("Logout Successfully!")

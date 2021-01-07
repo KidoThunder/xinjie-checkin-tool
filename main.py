@@ -1,8 +1,9 @@
 from apis import XinJieAPIS
+from xj_logger import logger
 
-print('----------start----------')
+logger.info('----------start----------')
 xj_api = XinJieAPIS()
 xj_api.login()
 xj_api.checkin()
 xj_api.logout()
-print("----------finish---------")
+logger.info("----------finish---------")
