@@ -53,7 +53,6 @@ class XinJieAPIS(object):
         resp, is_ok = self.base_request.post(url)
         if not is_ok:
             print("Checkin Failed!")
-        import pdb; pdb.set_trace()
         print(resp.text)
         print(f"Checkin Result: {resp.json()['ret']}, Checkin message: {resp.json()['msg']}")
 
