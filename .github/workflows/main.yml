@@ -3,7 +3,7 @@ name: 'XJ Checkin'
 on:
   push:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '* 18 * * *'
 jobs:
   check-in:
     runs-on: ubuntu-latest
