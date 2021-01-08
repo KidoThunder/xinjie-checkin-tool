@@ -20,4 +20,4 @@ jobs:
           pip install requests pyyaml
       - name: 'Run check in'
         run: |
-          python main.py
+          python main.py "${{ secrets.XJ_BASE_URL }}" "${{ secrets.XJ_EMAIL }}" "${{ secrets.XJ_PASSWORD }}"
