@@ -1,12 +1,6 @@
-from pathlib import Path
-
-import yaml
 import requests
 
 from xj_logger import logger
-
-with open(Path.cwd() / "config.yaml") as config_file:
-    CONFIG = yaml.safe_load(config_file)
 
 
 class BaseRequest(object):
@@ -32,8 +26,8 @@ class BaseRequest(object):
 
 
 class XinJieAPIS(object):
-    def __init__(self):
-        self.api_config = CONFIG["xinjie"]["api"]
+    def __init__(self, config):
+        self.api_config = config["xinjie"]["api"]
         self.base_url = self.api_config["base_url"]
         self.base_request = BaseRequest()
 
