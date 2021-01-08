@@ -1,0 +1,23 @@
+name: 'XJ Checkin'
+ 
+on:
+  push:
+  schedule:
+    - cron: '*/1 * * * *'
+jobs:
+  check-in:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout codes'
+        uses: actions/checkout@v2
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: 'Prepare Env'
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests pyyaml
+      - name: 'Run check in'
+        run: |
+          python main.py
