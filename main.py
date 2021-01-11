@@ -3,7 +3,7 @@ from pathlib import Path
 
 import yaml
 
-from apis import XinJieAPIS
+from apis import XinJieAPIS, ServerPushAPIs
 from xj_logger import logger
 
 
@@ -11,7 +11,9 @@ def main(api_config):
     logger.info('----------start----------')
     xj_api = XinJieAPIS(api_config)
     xj_api.login()
-    xj_api.checkin()
+    is_success, msg = xj_api.checkin()
+    server_push_api = ServerPushAPIs(api_config)
+    server_push_api.push_to_wechat(is_success, msg)
     xj_api.logout()
     logger.info("----------finish---------")
 
@@ -24,6 +26,13 @@ if __name__ == '__main__':
                     'base_url': sys.argv[1],
                     'email': sys.argv[2],
                     'password': sys.argv[3],
+                }
+            },
+            "serverchan": {
+                "api": {
+                    'base_url': sys.argv[4],
+                    'token': sys.argv[5],
+                    'request_suffix': sys.argv[6],
                 }
             }
         }
