@@ -1,4 +1,5 @@
 import requests
+import datetime
 
 from xj_logger import logger
 
@@ -72,8 +73,7 @@ class ServerPushAPIs(BaseRequest):
         url = f"{self.base_url}{self.api_config['token']}{self.api_config['request_suffix']}"
         payload = {
             "text": "XJ checkin successfully!" if status else "XJ checkin failed!",
-            "desp": message
+            "desp": f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}-{message}"
         }
-        import pdb; pdb.set_trace()
         resp = self.base_request.post(url, payload)
         print(resp)
