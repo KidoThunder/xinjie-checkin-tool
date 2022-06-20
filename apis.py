@@ -36,14 +36,15 @@ class XinJieAPIS(object):
         url = f"{self.base_url}auth/login"
         payload = {
             "email": self.api_config["email"],
-            "passwd": self.api_config["password"]
+            "passwd": self.api_config["password"],
+            "code": ""
         }
-        resp, is_ok = self.base_request.post(url, payload)
+        resp, is_ok = self.base_request.post(url, payload=payload)
         if not is_ok:
             logger.info("Login Failed!")
             return
         self.base_request.set_cookies(resp.cookies)
-        logger.info(f"Login Result: {resp.json()['ret']}, Login message: {resp.json()['msg']}")
+        logger.info(f"Login Result: {is_ok}")
 
     def checkin(self):
         url = f"{self.base_url}user/checkin"
@@ -51,8 +52,8 @@ class XinJieAPIS(object):
         if not is_ok:
             logger.info("Checkin Failed!")
             return False, "Checkin Failed!"
-        logger.info(f"Checkin Result: {resp.json()['ret']}, Checkin message: {resp.json()['msg']}")
-        return True, resp.json()['msg']
+        logger.info(f"Checkin Result: {is_ok}")
+        return True, "Success"
 
     def logout(self):
         url = f"{self.base_url}user/logout"
